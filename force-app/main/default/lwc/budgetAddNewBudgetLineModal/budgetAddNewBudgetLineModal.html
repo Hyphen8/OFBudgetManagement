@@ -1,0 +1,37 @@
+<!--
+  @description       : 
+  @author            : daniel@hyphen8.com
+  @group             : 
+  @last modified on  : 04-17-2021
+  @last modified by  : daniel@hyphen8.com
+  Modifications Log 
+  Ver   Date         Author               Modification
+  1.0   04-17-2021   daniel@hyphen8.com   Initial Version
+-->
+<template>
+    <template if:true={showModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title={label.closeLabel} onclick={closeModal}>
+                    <lightning-icon icon-name="utility:close"
+                        variant="inverse"
+                        size="small" >
+                        </lightning-icon>
+                    <span class="slds-assistive-text">{label.closeLabel}</span>
+                </button>
+                <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">{label.modalTitle}</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <lightning-input type="text" label={label.fieldLabel} placeholder={label.placeholder} minlength="6" maxlength="80" onchange={handleBudgetHeaderChange}></lightning-input>
+            </div>
+            <footer class="slds-modal__footer">
+                <button class="slds-button slds-button_neutral" onclick={closeModal}>{label.cancelLabel}</button>
+                <button class="slds-button slds-button_brand" disabled={allowSave} onclick={handleGenerateBudgetHeader}>{label.saveLabel}</button>
+            </footer>
+        </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    
+</template>

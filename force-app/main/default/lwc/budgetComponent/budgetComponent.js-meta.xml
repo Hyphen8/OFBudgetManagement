@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="showPlan" type="Boolean" />
+            <property name="showRecommended" type="Boolean" />
+            <property name="showAwarded" type="Boolean" />
+            <property name="showPayment" type="Boolean" />
+            <property name="showChange" type="Boolean" />
+            <property name="showSpend" type="Boolean" />
+            <property name="showVariance" type="Boolean" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

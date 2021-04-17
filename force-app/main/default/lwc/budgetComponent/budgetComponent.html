@@ -1,0 +1,277 @@
+<!--
+  @description       : budget component
+  @author            : daniel@hyphen8.com
+  @group             : 
+  @last modified on  : 04-17-2021
+  @last modified by  : daniel@hyphen8.com
+  Modifications Log 
+  Ver   Date         Author               Modification
+  1.0   04-16-2021   daniel@hyphen8.com   Initial Version
+-->
+<template>
+
+    <lightning-card>
+        <lightning-button-group slot="actions">
+            <lightning-button label={label.addPaymentButtonLabel} onclick={handleAddPayment}></lightning-button>
+            <lightning-button label={label.addBudgetHeadingButtonLabel} onclick={handleAddBudgetHeader}></lightning-button>
+        </lightning-button-group>
+        <template if:true={hasBudgetLines}>
+            <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title={label.budgetHeaderColumnLabel}>{label.budgetHeaderColumnLabel}</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title=""></div>
+                    </th>
+                    <template for:each={payments} for:item="paymentLine">
+                        <th key={paymentLine.Id} class="" scope="col">
+                            <div class="slds=truncate" title={label.budgetPaymentColumnLabel}>{label.budgetPaymentColumnLabel}</div>
+                            <div class="slds=truncate" title={paymentLine.outfunds__Scheduled_Date__c}>
+                                <lightning-formatted-date-time value={paymentLine.outfunds__Scheduled_Date__c} year="numeric" month="short"></lightning-formatted-date-time>
+                            </div>
+                        </th>
+                    </template>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title={label.budgetTotalsColumnLabel}>{label.budgetTotalsColumnLabel}</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={budgets} for:item="budget">
+                    <tr key={budget.Id} class="slds-hint-parent">
+                        <th class="" scope="row">
+                            <div class="slds-truncate" title={budget.Heading__c}>
+                                <strong>{budget.Heading__c}</strong>
+                            </div>
+                        </th>
+                        <th data-label="" scope="row">
+                            <template if:true={showPlan}>
+                                <div class="slds-truncate" title={label.cellPlan}><strong>{label.cellPlan}</strong></div>
+                            </template>
+                            <template if:true={showRecommended}>
+                                <div class="slds-truncate" title={label.cellRecommended}><strong>{label.cellRecommended}</strong></div>
+                            </template>
+                            <template if:true={showAwarded}>
+                                <div class="slds-truncate" title={label.cellAwarded}><strong>{label.cellAwarded}</strong></div>
+                            </template>
+                            <template if:true={showPayment}>
+                                <div class="slds-truncate" title={label.cellPaymentAmount}><strong>{label.cellPaymentAmount}</strong></div>
+                            </template>
+                            <template if:true={showChange}>
+                                <div class="slds-truncate" title={label.cellChange}><strong>{label.cellChange}</strong></div>
+                            </template>
+                            <template if:true={showSpend}>
+                                <div class="slds-truncate" title={label.cellSpend}><strong>{label.cellSpend}</strong></div>
+                            </template>
+                            <template if:true={showVariance}>
+                                <div class="slds-truncate" title={label.cellVariance}><strong>{label.cellVariance}</strong></div>
+                            </template>
+                        </th>
+                        <template for:each={budget.Budget_Lines__r} for:item="budgetLine">
+                            <td key={budgetLine.Id}>
+                                <template if:true={showPlan}>
+                                    <div class="slds-truncate">
+                                        <lightning-formatted-number value={budgetLine.Plan__c} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number>
+                                    </div>
+                                </template>
+                                <template if:true={showRecommended}>
+                                    <div class="slds-truncate">
+                                        <lightning-formatted-number value={budgetLine.Recommended__c} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number>
+                                    </div>
+                                </template>
+                                <template if:true={showAwarded}>
+                                    <div class="slds-truncate">
+                                        <lightning-formatted-number value={budgetLine.Awarded__c} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number>
+                                    </div>
+                                </template>
+                                <template if:true={showPayment}>
+                                    <div class="slds-truncate">
+                                        <lightning-formatted-number value={budgetLine.Payment_Amount__c} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number>
+                                    </div>
+                                </template>
+                                <template if:true={showChange}>
+                                    <div class="slds-truncate">
+                                        <lightning-formatted-number value={budgetLine.Change__c} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number>
+                                    </div>
+                                </template>
+                                <template if:true={showSpend}>
+                                    <div class="slds-truncate">
+                                        <lightning-formatted-number value={budgetLine.Spend__c} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number>
+                                    </div>
+                                </template>
+                                <template if:true={showVariance}>
+                                    <div class="slds-truncate">
+                                        <lightning-formatted-number value={budgetLine.Variance__c} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number>
+                                    </div>
+                                </template>
+                            </td>
+
+                        </template>
+
+                        <td >
+                            <template if:true={showPlan}>
+                                <div class="slds-truncate">
+                                    <strong><lightning-formatted-number value={budget.Plan__c} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number></strong>
+                                </div>
+                            </template>
+                            <template if:true={showRecommended}>
+                                <div class="slds-truncate">
+                                    <strong><lightning-formatted-number value={budget.Recommended__c} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number></strong>
+                                </div>
+                            </template>
+                            <template if:true={showAwarded}>
+                                <div class="slds-truncate">
+                                    <strong><lightning-formatted-number value={budget.Awarded__c} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number></strong>
+                                </div>
+                            </template>
+                            <template if:true={showPayment}>
+                                <div class="slds-truncate">
+                                    <strong><lightning-formatted-number value={budget.Payment_Amount__c} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number></strong>
+                                </div>
+                            </template>
+                            <template if:true={showChange}>
+                                <div class="slds-truncate">
+                                    <strong><lightning-formatted-number value={budget.Change__c} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number></strong>
+                                </div>
+                            </template>
+                            <template if:true={showSpend}>
+                                <div class="slds-truncate">
+                                    <strong><lightning-formatted-number value={budget.Spend__c} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number></strong>
+                                </div>
+                            </template>
+                            <template if:true={showVariance}>
+                                <div class="slds-truncate">
+                                    <strong><lightning-formatted-number value={budget.Variance__c} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number></strong>
+                                </div>
+                            </template>
+                        </td>
+
+                    </tr>
+                </template>
+                <tr class="slds-hint-parent">
+                    <th scope="row">
+                        <div class="slds-truncate" title={label.cellTotal}>
+                            <strong>{label.cellTotal}</strong>
+                        </div>
+                    </th>
+                    <th data-label="" scope="row">
+                        <template if:true={showPlan}>
+                            <div class="slds-truncate" title={label.cellPlan}><strong>{label.cellPlan}</strong></div>
+                        </template>
+                        <template if:true={showRecommended}>
+                            <div class="slds-truncate" title={label.cellRecommended}><strong>{label.cellRecommended}</strong></div>
+                        </template>
+                        <template if:true={showAwarded}>
+                            <div class="slds-truncate" title={label.cellAwarded}><strong>{label.cellAwarded}</strong></div>
+                        </template>
+                        <template if:true={showPayment}>
+                            <div class="slds-truncate" title={label.cellPaymentAmount}><strong>{label.cellPaymentAmount}</strong></div>
+                        </template>
+                        <template if:true={showChange}>
+                            <div class="slds-truncate" title={label.cellChange}><strong>{label.cellChange}</strong></div>
+                        </template>
+                        <template if:true={showSpend}>
+                            <div class="slds-truncate" title={label.cellSpend}><strong>{label.cellSpend}</strong></div>
+                        </template>
+                        <template if:true={showVariance}>
+                            <div class="slds-truncate" title={label.cellVariance}><strong>{label.cellVariance}</strong></div>
+                        </template>
+                    </th>
+
+                    <template for:each={payments} for:item="paymentLine">
+
+                        <td key={paymentLine.Id} >
+                            <template if:true={showPlan}>
+                                <div class="slds-truncate">
+                                    <strong><lightning-formatted-number value={paymentLine.Plan__c} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number></strong>
+                                </div>
+                            </template>
+                            <template if:true={showRecommended}>
+                                <div class="slds-truncate">
+                                    <strong><lightning-formatted-number value={paymentLine.Recommended__c} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number></strong>
+                                </div>
+                            </template>
+                            <template if:true={showAwarded}>
+                                <div class="slds-truncate">
+                                    <strong><lightning-formatted-number value={paymentLine.Awarded__c} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number></strong>
+                                </div>
+                            </template>
+                            <template if:true={showPayment}>
+                                <div class="slds-truncate">
+                                    <strong><lightning-formatted-number value={paymentLine.Payment_Amount__c} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number></strong>
+                                </div>
+                            </template>
+                            <template if:true={showChange}>
+                                <div class="slds-truncate">
+                                    <strong><lightning-formatted-number value={paymentLine.Change__c} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number></strong>
+                                </div>
+                            </template>
+                            <template if:true={showSpend}>
+                                <div class="slds-truncate">
+                                    <strong><lightning-formatted-number value={paymentLine.Spend__c} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number></strong>
+                                </div>
+                            </template>
+                            <template if:true={showVariance}>
+                                <div class="slds-truncate">
+                                    <strong><lightning-formatted-number value={paymentLine.Variance__c} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number></strong>
+                                </div>
+                            </template>
+                        </td>
+
+                    </template>
+
+                    <td>
+                        <template if:true={showPlan}>
+                            <div class="slds-truncate">
+                                <strong><lightning-formatted-number value={totalPlan} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number></strong>
+                            </div>
+                        </template>
+                        <template if:true={showRecommended}>
+                            <div class="slds-truncate">
+                                <strong><lightning-formatted-number value={totalRecommended} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number></strong>
+                            </div>
+                        </template>
+                        <template if:true={showAwarded}>
+                            <div class="slds-truncate">
+                                <strong><lightning-formatted-number value={totalAwarded} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number></strong>
+                            </div>
+                        </template>
+                        <template if:true={showPayment}>
+                            <div class="slds-truncate">
+                                <strong><lightning-formatted-number value={totalPayment} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number></strong>
+                            </div>
+                        </template>
+                        <template if:true={showChange}>
+                            <div class="slds-truncate">
+                                <strong><lightning-formatted-number value={totalChange} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number></strong>
+                            </div>
+                        </template>
+                        <template if:true={showSpend}>
+                            <div class="slds-truncate">
+                                <strong><lightning-formatted-number value={totalSpend} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number></strong>
+                            </div>
+                        </template>
+                        <template if:true={showVariance}>
+                            <div class="slds-truncate">
+                                <strong><lightning-formatted-number value={totalVariance} format-style="currency" currency-code="GBP" currency-display-as="symbol"></lightning-formatted-number></strong>
+                            </div>
+                        </template>
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+        </template>
+        <template if:false={hasBudgetLines}>
+            <div class="slds-align_absolute-center" style="height:5rem">
+               There is no budget linked available yet to start creating one using the Add Payment and Add Budget Line buttons
+            </div>
+        </template>
+    </lightning-card>
+
+
+    <c-budget-add-new-payment-modal record-id={recordId} show-modal={addPayment} onclosemodalnosave={handleModalCloseNoSave} onclosemodalwithsave={handleModalCloseWithSave}></c-budget-add-new-payment-modal>
+    <c-budget-add-new-budget-line-modal record-id={recordId} show-modal={addBudgetHeading} onclosemodalnosave={handleModalCloseNoSave} onclosemodalwithsave={handleModalCloseWithSave}></c-budget-add-new-budget-line-modal>
+
+</template>
