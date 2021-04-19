@@ -1,0 +1,54 @@
+<!--
+  @description       : mappiong display html
+  @author            : daniel@hyphen8.com
+  @group             : 
+  @last modified on  : 01/03/2021
+  @last modified by  : daniel@hyphen8.com
+  Modifications Log 
+  Ver   Date         Author               Modification
+  1.0   01-11-2021   daniel@hyphen8.com   Initial Version
+-->
+<template>
+    <div class="slds-m-top_medium">
+        <lightning-card>
+            <lightning-record-edit-form 
+                record-id={recordId}
+                object-api-name="Meeting_Mapping_Template__c">
+                <lightning-messages></lightning-messages>
+                
+                <lightning-layout pull-to-boundary="medium">
+                    <lightning-layout-item flexibility="auto" padding="horizontal-medium">
+                        <lightning-combobox 
+                                name="progress" 
+                                label={label.configureMeetingComboBoxLabel} 
+                                value={selectedFieldSetAPIName} 
+                                placeholder={label.configureMeetingComboBoxPlaceHolder} 
+                                options={fieldSets} 
+                                onchange={handleAPINameChange} >
+                        </lightning-combobox>
+                    </lightning-layout-item>
+                </lightning-layout>
+                <template if:true={fieldsInFieldSet}>
+                    <div class="slds-m-top_medium slds-m-bottom_medium">{label.configureMeetingHelpText1}</div>
+                    <template for:each={fieldsInFieldSet} for:item="field">
+                        <div key={field.fieldName} class="slds-grid slds-gutters">
+                            <div class="slds-col">
+                                <span>{field.fieldName}</span>
+                            </div>
+                        </div>
+                    </template>
+                    <div class="slds-m-top_medium slds-m-bottom_medium">{label.configureMeetingHelpText2}</div>
+                </template>
+            </lightning-record-edit-form>
+
+            <div class="slds-m-top_medium slds-align_absolute-center">
+                <lightning-button 
+                    variant="brand"
+                    label={label.configureMeetingSaveButton} 
+                    onclick={saveAndEnable} 
+                    slot="actions">
+                </lightning-button>
+            </div>
+        </lightning-card>
+    </div>  
+</template>

@@ -19,6 +19,10 @@
                 <behavior>Edit</behavior>
                 <field>Heading__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Budget_Category__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>
@@ -112,11 +116,11 @@
         <excludeButtons>MassChangeOwner</excludeButtons>
         <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
-        <fields>Awarded__c</fields>
-        <fields>Change__c</fields>
-        <fields>Payment_Amount__c</fields>
         <fields>Plan__c</fields>
         <fields>Recommended__c</fields>
+        <fields>Awarded__c</fields>
+        <fields>Payment_Amount__c</fields>
+        <fields>Change__c</fields>
         <fields>Spend__c</fields>
         <fields>Variance__c</fields>
         <fields>outfunds__Disbursement__c.outfunds__Amount__c</fields>
@@ -129,7 +133,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h25000002GTiM</masterLabel>
+        <masterLabel>00h4L000000OVhI</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

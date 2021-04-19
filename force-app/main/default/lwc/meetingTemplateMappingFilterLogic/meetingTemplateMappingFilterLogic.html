@@ -1,0 +1,70 @@
+<!--
+  @description       : component for handling the management of filter logic
+  @author            : daniel@hyphen8.com
+  @group             : 
+  @last modified on  : 16/03/2021
+  @last modified by  : daniel@hyphen8.com
+  Modifications Log 
+  Ver   Date         Author               Modification
+  1.0   01-11-2021   daniel@hyphen8.com   Initial Version
+-->
+<template>
+    <div class="slds-m-top_medium">
+            <lightning-card>
+                <lightning-record-edit-form 
+                    record-id={recordId}
+                    object-api-name="Meeting_Mapping_Template__c">
+                    <lightning-messages></lightning-messages>
+                    <lightning-layout pull-to-boundary="medium">
+                        <lightning-layout-item flexibility="auto" padding="horizontal-medium">
+                            <lightning-input-field 
+                                field-name="Filter_Logic__c"
+                                data-field="Filter_Logic__c"
+                                onchange={handleLogicChange}>
+                            </lightning-input-field>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                    
+                    <template if:true={displayCustomField}>
+                        <lightning-layout pull-to-boundary="medium">
+                            <lightning-layout-item flexibility="auto" padding="horizontal-medium">
+                                <lightning-input-field 
+                                    field-name="Custom_Filter_Logic__c"
+                                    data-field="Custom_Filter_Logic__c"
+                                    value={customLogicValue}
+                                    onchange={handleCustomLogicChange}
+                                    oncommit={handleCustomLogicChange}>
+                                </lightning-input-field>
+                                <lightning-formatted-rich-text value={label.customLogicHelpText}></lightning-formatted-rich-text>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </template>
+                </lightning-record-edit-form>
+
+                <template if:true={displayError}>
+                    <lightning-layout pull-to-boundary="medium">
+                        <lightning-layout-item flexibility="auto" padding="horizontal-medium">
+                            <p style="color:red"><lightning-formatted-rich-text value={label.errorText}></lightning-formatted-rich-text> {validationError}</p>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </template>
+
+                <div class="slds-m-top_medium slds-align_absolute-center">
+                    <lightning-button-group>
+                        <template if:true={displayValidateButton}>
+                            <lightning-button 
+                                variant="success"
+                                label={label.validateButtonLabel} 
+                                onclick={validateLogic}>
+                            </lightning-button>
+                        </template>
+                        <lightning-button 
+                            variant="brand"
+                            label={label.saveButtonLabel} 
+                            onclick={saveAndEnable}>
+                        </lightning-button>
+                    </lightning-button-group>
+                </div>
+            </lightning-card>
+    </div>
+</template>

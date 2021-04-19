@@ -1,0 +1,91 @@
+<!--
+  @description       : meeting template mapping modal html
+  @author            : daniel@hyphen8.com
+  @group             : 
+  @last modified on  : 16/03/2021
+  @last modified by  : daniel@hyphen8.com
+  Modifications Log 
+  Ver   Date         Author               Modification
+  1.0   01-09-2021   daniel@hyphen8.com   Initial Version
+-->
+<template>
+    <template if:true={showModalComponent}>  
+        <div class="slds-modal slds-fade-in-open slds-backdrop">  
+          <div class="slds-modal__container">  
+            
+            <div class="slds-modal__header">  
+              <lightning-button-icon icon-name="utility:close" alternative-text={label.closeAltText} size="large"  
+                variant="bare-inverse" onclick={closeModal} class="slds-modal__close">  
+              </lightning-button-icon>  
+              <h2>{filterType} {label.modalTitle}</h2>  
+            </div>  
+            
+            <div class="slds-modal__content slds-p-around_medium" style="height:20rem">
+                <lightning-combobox name="progress" label={label.selectFieldLabel} value={selectedField} placeholder={label.selectFieldPlaceholder} options={availableFields} onchange={handleSelectField} ></lightning-combobox>
+                <template if:true={displayOptions}>
+                  <!-- <div class="slds-form-element slds-m-top_xx-small">
+                    <label class="slds-form-element__label" for="form-element-01">{label.fieldDataTypeLabel}</label>
+                    <div class="slds-form-element__control">
+                      <lightning-formatted-text value={selectedFieldType}></lightning-formatted-text>
+                    </div>
+                  </div> -->
+                  <lightning-combobox name="operatorSelection" label={label.operatorTitle} value={selectedOperator} placeholder={label.operatorPlaceholder} options={availableOperators} onchange={handleSelectOperator} ></lightning-combobox>              
+                  <template if:true={isBoolean}>
+                    <div class="slds-form-element slds-m-top_small">
+                      <lightning-input type="checkbox" name="booleanValue" label={label.filterValueLabel} onchange={handleValueChangeEvent} value={enteredValue}></lightning-input>
+                    </div>
+                    </template>
+                  <template if:true={isDate}>
+                    <div class="slds-form-element slds-m-top_small">
+                      <div class="slds-align_absolute-center">
+                        <lightning-button-group>
+                          <lightning-button variant={relativeDateClass} label={label.useRelativeDateLabel} onclick={handleDateEntryTypeChange}></lightning-button>
+                          <lightning-button variant={calendarDateClass} label={label.useCalendarDateLabel} onclick={handleDateEntryTypeChange}></lightning-button>
+                        </lightning-button-group>
+                      </div>
+                      <template if:true={useCalendarDate}>
+                        <p class="slds-m-top_small"><lightning-formatted-rich-text value={label.dateSupportText}></lightning-formatted-rich-text></p>
+                      </template>
+                    </div>
+                    <template if:true={useCalendarDate}>
+                      <lightning-input type="date" name="dateValue" label={label.filterValueLabel} onchange={handleValueChangeEvent} value={enteredValue}></lightning-input>
+                    </template>
+                    <template if:true={useRelativeDate}>
+                      <lightning-input type="text" name="stringValue" label={label.filterValueLabel} onchange={handleValueChangeEvent} value={enteredValue}></lightning-input>
+                      <p><lightning-formatted-rich-text value={label.dateSupportText}></lightning-formatted-rich-text></p>
+                    </template>
+                  </template>
+                  <template if:true={isString}>
+                    <lightning-input type="text" name="stringValue" label={label.filterValueLabel} onchange={handleValueChangeEvent} value={enteredValue}></lightning-input>
+                  </template>
+                  <template if:true={isNumber}>
+                    <lightning-input type="number" name="numberValue" label={label.filterValueLabel} onchange={handleValueChangeEvent} value={enteredValue}></lightning-input>
+                  </template>
+                </template>
+                <template if:true={displayWarning}>
+                  <div class="slds-form-element slds-m-top_xx-small">
+                    <label class="slds-form-element__label" for="form-element-01">{label.fieldDataTypeLabel}</label>
+                    <div class="slds-form-element__control">
+                      <lightning-formatted-text value={selectedFieldType}></lightning-formatted-text>
+                    </div>
+                  </div>
+                  <div class="slds-form-element slds-m-top_xx-small">
+                    <label class="slds-form-element__label" for="form-element-01">{label.fieldSupportErrorLabel}</label>
+                    <div class="slds-form-element__control">
+                      <lightning-formatted-text value={label.fieldSupportErrorSupportText}></lightning-formatted-text>
+                    </div>
+                  </div>
+                </template>
+            </div>  
+            
+            <div class="slds-modal__footer">
+              <lightning-button-group>
+                <lightning-button label={label.closeButtonLabel} variant="destructive" onclick={closeModal}></lightning-button>
+                <lightning-button label={label.saveButtonLabel} variant="brand" onclick={saveModal} disabled={saveDisabled}></lightning-button>  
+              </lightning-button-group>
+            </div>  
+          
+          </div>  
+        </div>  
+      </template>
+</template>

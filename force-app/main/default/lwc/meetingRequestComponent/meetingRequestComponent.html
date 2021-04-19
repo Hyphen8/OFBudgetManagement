@@ -1,0 +1,82 @@
+<!--
+  @description       : 
+  @author            : daniel@hyphen8.com
+  @last modified on  : 01/03/2021
+  @last modified by  : daniel@hyphen8.com
+  Modifications Log 
+  Ver   Date         Author               Modification
+  1.0   23/02/2021   daniel@hyphen8.com   Initial Version
+-->
+<template>
+
+    <template if:false={isLoaded}>
+        <c-meeting-loader-component></c-meeting-loader-component>
+    </template>
+
+    <template if:true={isLoaded}>
+        <article class="slds-card slds-card_boundary">
+            <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>{label.meetingRequestTitle} ({requestCount})</span>
+                    </h2>
+                </div>
+                <div class="slds-no-flex">
+                    <template if:true={template.Allow_Bulk_Status_Changes__c}>
+                        <lightning-button-group slot="actions">
+                            <template for:each={buttons} for:item="button">
+                                <lightning-button key={button.label} label={button.label} data-target-id={button.label} onclick={handleButtonPress}></lightning-button>
+                            </template>
+                        </lightning-button-group>
+                    </template>
+                </div>
+            </header>
+            </div>
+            <div class="slds-card__body">
+                <table aria-multiselectable="true" class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered">
+                    <thead>
+                    <tr class="slds-line-height_reset">
+                        <template if:true={template.Allow_Bulk_Status_Changes__c}>
+                            <th class="" scope="col" style="width:3.25rem">
+                                <lightning-input type="checkbox" name="input1" onchange={checkAllBoxes}></lightning-input>
+                            </th>
+                        </template>
+                        <template for:each={columnHeaders} for:item="column">
+                            <th key={column.label} class="" scope="col" style={column.value}>
+                                <div class="slds-truncate" title={column.label}>{column.label}</div>
+                            </th>
+                        </template>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={requests} for:item="request">
+                                
+                                <c-meeting-request-data-row-component 
+                                    key={request.meetingRequestID} 
+                                    request={request} 
+                                    template={template} 
+                                    status-options={statusOptions}
+                                    checked={rowsChecks}
+                                    onrowselected={handleRowSelected}
+                                    onrowdeselected={handleRowDeSelected}
+                                    onopencomments={handleOpenComments}
+                                    ondeleterow={handleDeleteRow}>
+                                </c-meeting-request-data-row-component>
+
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </article>
+    </template>
+
+    <template if:true={errors}>
+        <c-error-panel 
+                errors={errors}>
+        </c-error-panel>
+    </template>
+
+    <c-meeting-comments-modal meeting-request-id={meetingRequestRecordID} open-modal={openComments} onmodalclosed={handleCommentsClose} onmodalsaved={handleSaveAction}></c-meeting-comments-modal>
+
+</template>

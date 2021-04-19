@@ -1,0 +1,18 @@
+<!--
+  @description       : reusable dynamic progress bar html
+  @author            : daniel@hyphen8.com
+  @last modified on  : 01/03/2021
+  @last modified by  : daniel@hyphen8.com
+  Modifications Log 
+  Ver   Date         Author               Modification
+  1.0   21/02/2021   daniel@hyphen8.com   Initial Version
+-->
+<template>
+    <p>{numberProcessed} / {numberOfItems} {label.progressItemsText}</p>
+    <lightning-progress-bar 
+        value={progressvalue}
+        size="large"
+        variant="circular">
+    </lightning-progress-bar>
+    
+</template>

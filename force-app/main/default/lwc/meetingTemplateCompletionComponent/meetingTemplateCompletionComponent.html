@@ -1,0 +1,24 @@
+<!--
+  @description       : simple completion child component that allow for setting of a toggle switch
+  @author            : daniel@hyphen8.com
+  @last modified on  : 25/02/2021
+  @last modified by  : daniel@hyphen8.com
+  Modifications Log 
+  Ver   Date         Author               Modification
+  1.0   21/02/2021   daniel@hyphen8.com   Initial Version
+-->
+<template>
+
+    <div class="slds-align_absolute-center" style="height:5rem">
+        
+        <lightning-input 
+                    type="toggle" 
+                    label={label.useSystemCompletionScriptLabel} 
+                    name="useCompletionScript" 
+                    checked={useDefaultCompleteProcess} 
+                    onchange={handleToggleChange}>
+        </lightning-input>
+
+    </div>
+    
+</template>

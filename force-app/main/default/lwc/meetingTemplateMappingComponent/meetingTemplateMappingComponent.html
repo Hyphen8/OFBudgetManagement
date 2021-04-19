@@ -1,0 +1,321 @@
+<!--
+  @description       : simple template mapping component
+  @author            : daniel@hyphen8.com
+  @group             : 
+  @last modified on  : 01/03/2021
+  @last modified by  : daniel@hyphen8.com
+  Modifications Log 
+  Ver   Date         Author               Modification
+  1.0   01-09-2021   daniel@hyphen8.com   Initial Version
+-->
+<template>
+
+    <lightning-card>
+        
+        <h1 slot="title">{label.assistantSetupTitle}</h1>
+        <div class="slds-m-left_medium">
+            <lightning-formatted-rich-text
+                value={label.assistantSetupDescription}>
+            </lightning-formatted-rich-text>
+        </div>
+        
+        <div class="slds-p-horizontal_small">
+            <ol class="slds-setup-assistant">
+                <li class="slds-setup-assistant__item">
+                    <article class="slds-setup-assistant__step">
+                        <div class={section1Class}>
+                            <template if:true={section1Closed}>
+                                <lightning-button-icon data-target-id="section1closed" class="slds-m-right_x-small slds-m-top_x-small" icon-name="utility:chevronright"  variant="bare" alternative-text={label.setupOption1ChevronClosed} title={label.setupOption1ChevronClosed} onclick={handleChevronClick}></lightning-button-icon>
+                            </template>
+                            <template if:false={section1Closed}>
+                                <lightning-button-icon data-target-id="section1open" class="slds-m-right_x-small slds-m-top_x-small" icon-name="utility:chevrondown"  variant="bare" alternative-text={label.setupOption1ChevronOpen} title={label.setupOption1ChevronOpen} onclick={handleChevronClick}></lightning-button-icon>
+                            </template>
+                            <div class="slds-container_fluid">
+                                <div class="slds-summary-detail__title">
+                                    <div class="slds-setup-assistant__step-summary">
+                                        <div class="slds-media">
+                                        <div class="slds-media__figure">
+                                            <div class="slds-progress-ring slds-progress-ring_active-step slds-progress-ring_large">
+                                            <div class="slds-progress-ring__progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                                                <svg viewBox="-1 -1 2 2">
+                                                    <path class="slds-progress-ring__path" id="slds-progress-ring-path-1" d="M 1 0 A 1 1 0 0 0 1.00 -0.00 L 0 0"></path>
+                                                </svg>
+                                            </div>
+                                            <div class="slds-progress-ring__content">1</div>
+                                            </div>
+                                        </div>
+                                        <div class="slds-media__body slds-m-top_x-small">
+                                            <div class="slds-media">
+                                                <div class="slds-setup-assistant__step-summary-content slds-media__body">
+                                                    <h3 class="slds-setup-assistant__step-summary-title slds-text-heading_small">
+                                                        {label.setupOption1Title} ({noOfFilters})
+                                                    </h3>
+                                                    <p>
+                                                        <lightning-formatted-rich-text
+                                                            value={label.setupOption1Description}>
+                                                        </lightning-formatted-rich-text>
+                                                    </p>
+                                                </div>
+                                                <div class="slds-media__figure slds-media__figure_reverse">
+                                                <p class="slds-text-align_right slds-text-color_weak"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div aria-hidden="false" class="slds-summary-detail__content" id="step-1-summary-action">
+                                    <div class="slds-setup-assistant__step-detail">
+                                        <lightning-card>
+                                            
+                                            <c-meeting-template-mapping-data-table 
+                                                    mapping-filters={mappingFilters} 
+                                                    onfilterdeleted={handleFilterDeleted} 
+                                                    onprocesseditrecord={handleDataTableEditRequest}>
+                                            </c-meeting-template-mapping-data-table>
+                                            <div class="slds-m-top_medium slds-align_absolute-center">
+                                                <lightning-button
+                                                        variant="brand"
+                                                        label={label.addFilterButton} 
+                                                        onclick={showModal}>
+                                                </lightning-button>
+                                            </div>
+                                        </lightning-card>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </li>
+                <li class="slds-setup-assistant__item">
+                    <article class="slds-setup-assistant__step">
+                        <div class={section2Class}>
+                            <template if:true={section2Closed}>
+                                <lightning-button-icon data-target-id="section2closed" class="slds-m-right_x-small slds-m-top_x-small" icon-name="utility:chevronright"  variant="bare" alternative-text={label.setupOption2ChevronClosed} title={label.setupOption2ChevronClosed} onclick={handleChevronClick}></lightning-button-icon>
+                            </template>
+                            <template if:false={section2Closed}>
+                                <lightning-button-icon data-target-id="section2open" class="slds-m-right_x-small slds-m-top_x-small" icon-name="utility:chevrondown"  variant="bare" alternative-text={label.setupOption2ChevronOpen} title={label.setupOption2ChevronOpen} onclick={handleChevronClick}></lightning-button-icon>
+                            </template>
+                            <div class="slds-container_fluid">
+                                <div class="slds-summary-detail__title">
+                                    <div class="slds-setup-assistant__step-summary">
+                                        <div class="slds-media">
+                                        <div class="slds-media__figure">
+                                            <div class="slds-progress-ring slds-progress-ring_active-step slds-progress-ring_large">
+                                            <div class="slds-progress-ring__progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                                                <svg viewBox="-1 -1 2 2">
+                                                    <path class="slds-progress-ring__path" id="slds-progress-ring-path-2" d="M 1 0 A 1 1 0 0 0 1.00 -0.00 L 0 0"></path>
+                                                </svg>
+                                            </div>
+                                            <div class="slds-progress-ring__content">2</div>
+                                            </div>
+                                        </div>
+                                        <div class="slds-media__body slds-m-top_x-small">
+                                            <div class="slds-media">
+                                                <div class="slds-setup-assistant__step-summary-content slds-media__body">
+                                                    <h3 class="slds-setup-assistant__step-summary-title slds-text-heading_small">
+                                                        {label.setupOption2Title}
+                                                    </h3>
+                                                    <p>
+                                                        <lightning-formatted-rich-text
+                                                            value={label.setupOption2Description}>
+                                                        </lightning-formatted-rich-text>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div aria-hidden="false" class="slds-summary-detail__content" id="step-2-summary-action">
+                                    <div class="slds-setup-assistant__step-detail">
+                                        <c-meeting-template-mapping-filter-logic 
+                                                    record-id={recordId}
+                                                    display-filter-logic={displayFilterLogic}>
+                                        </c-meeting-template-mapping-filter-logic>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </li>
+                <li class="slds-setup-assistant__item">
+                    <article class="slds-setup-assistant__step">
+                        <div class={section3Class}>
+                            <template if:true={section3Closed}>
+                                <lightning-button-icon data-target-id="section3closed" class="slds-m-right_x-small slds-m-top_x-small" icon-name="utility:chevronright"  variant="bare" alternative-text={label.setupOption3ChevronClosed} title={label.setupOption3ChevronClosed} onclick={handleChevronClick}></lightning-button-icon>
+                            </template>
+                            <template if:false={section3Closed}>
+                                <lightning-button-icon data-target-id="section3open" class="slds-m-right_x-small slds-m-top_x-small" icon-name="utility:chevrondown"  variant="bare" alternative-text={label.setupOption3ChevronOpen} title={label.setupOption3ChevronOpen} onclick={handleChevronClick}></lightning-button-icon>
+                            </template>
+                            <div class="slds-container_fluid">
+                                <div class="slds-summary-detail__title">
+                                    <div class="slds-setup-assistant__step-summary">
+                                        <div class="slds-media">
+                                        <div class="slds-media__figure">
+                                            <div class="slds-progress-ring slds-progress-ring_active-step slds-progress-ring_large">
+                                            <div class="slds-progress-ring__progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                                                <svg viewBox="-1 -1 2 2">
+                                                    <path class="slds-progress-ring__path" id="slds-progress-ring-path-3" d="M 1 0 A 1 1 0 0 0 1.00 -0.00 L 0 0"></path>
+                                                </svg>
+                                            </div>
+                                            <div class="slds-progress-ring__content">3</div>
+                                            </div>
+                                        </div>
+                                        <div class="slds-media__body slds-m-top_x-small">
+                                            <div class="slds-media">
+                                                <div class="slds-setup-assistant__step-summary-content slds-media__body">
+                                                    <h3 class="slds-setup-assistant__step-summary-title slds-text-heading_small">
+                                                        {label.setupOption3Title}
+                                                    </h3>
+                                                    <p>
+                                                        <lightning-formatted-rich-text
+                                                            value={label.setupOption3Description}>
+                                                        </lightning-formatted-rich-text>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div aria-hidden="false" class="slds-summary-detail__content" id="step-3-summary-action">
+                                    <div class="slds-setup-assistant__step-detail">
+                                        <c-meeting-template-mapping-display-component 
+                                                    record-id={recordId}>
+                                        </c-meeting-template-mapping-display-component>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </li>
+                <li class="slds-setup-assistant__item">
+                    <article class="slds-setup-assistant__step">
+                        <div class={section4Class}>
+                            <template if:true={section4Closed}>
+                                <lightning-button-icon data-target-id="section4closed" class="slds-m-right_x-small slds-m-top_x-small" icon-name="utility:chevronright"  variant="bare" alternative-text={label.setupOption4ChevronClosed} title={label.setupOption4ChevronClosed} onclick={handleChevronClick}></lightning-button-icon>
+                            </template>
+                            <template if:false={section4Closed}>
+                                <lightning-button-icon data-target-id="section4open" class="slds-m-right_x-small slds-m-top_x-small" icon-name="utility:chevrondown"  variant="bare" alternative-text={label.setupOption4ChevronOpen} title={label.setupOption4ChevronOpen} onclick={handleChevronClick}></lightning-button-icon>
+                            </template>
+                            <div class="slds-container_fluid">
+                                <div class="slds-summary-detail__title">
+                                    <div class="slds-setup-assistant__step-summary">
+                                        <div class="slds-media">
+                                        <div class="slds-media__figure">
+                                            <div class="slds-progress-ring slds-progress-ring_active-step slds-progress-ring_large">
+                                            <div class="slds-progress-ring__progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                                                <svg viewBox="-1 -1 2 2">
+                                                    <path class="slds-progress-ring__path" id="slds-progress-ring-path-4" d="M 1 0 A 1 1 0 0 0 1.00 -0.00 L 0 0"></path>
+                                                </svg>
+                                            </div>
+                                            <div class="slds-progress-ring__content">4</div>
+                                            </div>
+                                        </div>
+                                        <div class="slds-media__body slds-m-top_x-small">
+                                            <div class="slds-media">
+                                                <div class="slds-setup-assistant__step-summary-content slds-media__body">
+                                                    <h3 class="slds-setup-assistant__step-summary-title slds-text-heading_small">
+                                                        {label.setupOption4Title}
+                                                    </h3>
+                                                    <p>
+                                                        <lightning-formatted-rich-text
+                                                            value={label.setupOption4Description}>
+                                                        </lightning-formatted-rich-text>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div aria-hidden="false" class="slds-summary-detail__content" id="step-4-summary-action">
+                                    <div class="slds-setup-assistant__step-detail">
+                                        <c-meeting-template-action-component 
+                                                record-id={recordId}>
+                                        </c-meeting-template-action-component>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </li>
+                <li class="slds-setup-assistant__item">
+                    <article class="slds-setup-assistant__step">
+                        <div class={section5Class}>
+                            <template if:true={section5Closed}>
+                                <lightning-button-icon data-target-id="section5closed" class="slds-m-right_x-small slds-m-top_x-small" icon-name="utility:chevronright"  variant="bare" alternative-text={label.setupOption5ChevronClosed} title={label.setupOption5ChevronClosed} onclick={handleChevronClick}></lightning-button-icon>
+                            </template>
+                            <template if:false={section5Closed}>
+                                <lightning-button-icon data-target-id="section5open" class="slds-m-right_x-small slds-m-top_x-small" icon-name="utility:chevrondown"  variant="bare" alternative-text={label.setupOption5ChevronOpen} title={label.setupOption5ChevronOpen} onclick={handleChevronClick}></lightning-button-icon>
+                            </template>
+                            <div class="slds-container_fluid">
+                                <div class="slds-summary-detail__title">
+                                    <div class="slds-setup-assistant__step-summary">
+                                        <div class="slds-media">
+                                        <div class="slds-media__figure">
+                                            <div class="slds-progress-ring slds-progress-ring_active-step slds-progress-ring_large">
+                                            <div class="slds-progress-ring__progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                                                <svg viewBox="-1 -1 2 2">
+                                                    <path class="slds-progress-ring__path" id="slds-progress-ring-path-5" d="M 1 0 A 1 1 0 0 0 1.00 -0.00 L 0 0"></path>
+                                                </svg>
+                                            </div>
+                                            <div class="slds-progress-ring__content">5</div>
+                                            </div>
+                                        </div>
+                                        <div class="slds-media__body slds-m-top_x-small">
+                                            <div class="slds-media">
+                                                <div class="slds-setup-assistant__step-summary-content slds-media__body">
+                                                    <h3 class="slds-setup-assistant__step-summary-title slds-text-heading_small">
+                                                        {label.setupOption5Title}
+                                                    </h3>
+                                                    <p>
+                                                        <lightning-formatted-rich-text
+                                                            value={label.setupOption5Description}>
+                                                        </lightning-formatted-rich-text>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div aria-hidden="false" class="slds-summary-detail__content" id="step-5-summary-action">
+                                    <div class="slds-setup-assistant__step-detail">
+                                        <c-meeting-template-completion-component 
+                                                record-id={recordId}>
+                                        </c-meeting-template-completion-component>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </li>
+            </ol>
+        </div>
+    </lightning-card>
+
+
+    
+
+    <c-meeting-template-mapping-new-modal 
+                record-id={recordId} 
+                filter-type={filterType} 
+                open-modal={openModal} 
+                edit-record={editRecord} 
+                current-order={currentOrder} 
+                onmodalclosed={handleModalClose} 
+                onmodalsaved={handleModalSaved}>
+    </c-meeting-template-mapping-new-modal>
+
+    
+
+    
+  
+    <template if:true={errors}>
+        <c-error-panel 
+                errors={errors}>
+        </c-error-panel>
+    </template>
+</template>

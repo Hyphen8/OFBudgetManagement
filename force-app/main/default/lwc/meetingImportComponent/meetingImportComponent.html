@@ -1,0 +1,89 @@
+<!--
+  @description       : 
+  @author            : daniel@hyphen8.com
+  @last modified on  : 25/02/2021
+  @last modified by  : daniel@hyphen8.com
+  Modifications Log 
+  Ver   Date         Author               Modification
+  1.0   21/02/2021   daniel@hyphen8.com   Initial Version
+-->
+<template>
+
+    <article class="slds-card slds-card_boundary">
+        <div class="slds-card__header slds-grid">
+        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+            <div class="slds-media__body">
+                <h2 class="slds-card__header-title">
+                    <span>{label.componentTitle}</span>
+                </h2>
+            </div>
+            <div class="slds-no-flex">
+                <lightning-button-group>
+                    <lightning-button label={label.importButtonLabel} disabled={disableImport} onclick={startImport}></lightning-button>
+                </lightning-button-group>
+            </div>
+        </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-p-horizontal_small">
+                <lightning-formatted-rich-text value={label.componentHelpText}></lightning-formatted-rich-text>
+            </div>
+            <template if:false={isLoaded}>
+                <c-meeting-loader-component></c-meeting-loader-component>
+            </template>
+
+            <template if:true={displayStartingMessage}>
+                <div class="slds-align_absolute-center" style="height:5rem">
+                    <lightning-formatted-rich-text value={label.importStartedText}></lightning-formatted-rich-text>
+                </div>
+            </template>
+            
+            <template if:true={displayProcessBar}>
+                <c-meeting-batch-progress-component 
+                        size={size} 
+                        progress-percent-value={progressPercentValue}
+                        number-of-items={numberOfItems}
+                        number-processed={numberProcessed}>
+                </c-meeting-batch-progress-component>
+            </template>
+
+            <template if:true={importComplete}>
+                
+                    <div class="slds-align_absolute-center slds-m-bottom_medium">
+                        <lightning-formatted-rich-text value={label.completeTitle}></lightning-formatted-rich-text>
+                    </div>
+                    <div class="slds-align_absolute-center">
+                        <lightning-icon icon-name="action:approval" alternative-text={label.completeIconText} title={label.completeIconText} size="large"></lightning-icon>
+                    </div>
+                    <div class="slds-align_absolute-center slds-m-top_medium">
+                        <lightning-formatted-rich-text value={label.completeSupportText}></lightning-formatted-rich-text>
+                    </div>
+
+            </template>
+
+            <template if:true={displayErrorMessage}>
+                <div class="slds-align_absolute-center slds-m-bottom_medium">
+                    <lightning-formatted-rich-text value={label.errorTitle}></lightning-formatted-rich-text>
+                </div>
+                <div class="slds-align_absolute-center">
+                    <lightning-icon icon-name="standard:first_non_empty" alternative-text={label.errorIconText} title={label.errorIconText} size="large"></lightning-icon>
+                </div>
+                <div class="slds-align_absolute-center slds-m-top_medium">
+                    <lightning-formatted-text value={errorMessage}></lightning-formatted-text>
+                </div>
+                <div>
+                    <lightning-formatted-rich-text value={label.errorSupportText}></lightning-formatted-rich-text>
+                </div>
+            </template>
+
+        </div>
+    </article>
+
+
+    <template if:true={errors}>
+        <c-error-panel 
+                errors={errors}>
+        </c-error-panel>
+    </template>
+    
+</template>

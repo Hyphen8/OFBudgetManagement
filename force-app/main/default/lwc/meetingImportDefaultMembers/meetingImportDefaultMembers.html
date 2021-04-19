@@ -1,0 +1,57 @@
+<!--
+  @description       : simple component to support with the import of members from the meeting mapping template
+  @author            : daniel@hyphen8.com
+  @last modified on  : 05/03/2021
+  @last modified by  : daniel@hyphen8.com
+  Modifications Log 
+  Ver   Date         Author               Modification
+  1.0   25/02/2021   daniel@hyphen8.com   Initial Version
+-->
+<template>
+    
+
+    <template if:true={templateMembersFound}>
+        <article class="slds-card slds-card_boundary">
+            <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>{label.componentTitle}</span>
+                    </h2>
+                </div>
+                <div class="slds-no-flex">
+                    <lightning-button-group>
+                        <lightning-button label={label.buttonLabel} onclick={importMembers} disabled={importDisabled}></lightning-button>
+                    </lightning-button-group>
+                </div>
+            </header>
+            </div>
+            <div class="slds-card__body slds-card__body_inner">
+                <template if:false={membersLoaded}>
+                    <div class="slds-p-horizontal_small">
+                        <lightning-formatted-rich-text value={label.componentSupportText}></lightning-formatted-rich-text>
+                    </div>
+                </template>
+                <template if:false={isLoaded}>
+                    <c-meeting-loader-component></c-meeting-loader-component>
+                </template>
+
+                <template if:true={membersLoaded}>
+                    <div class="slds-p-horizontal_small">
+                        <lightning-formatted-rich-text value={label.completeSupportText}></lightning-formatted-rich-text>
+                    </div>
+                </template>
+
+            </div>
+        </article>
+    </template>
+
+    <template if:true={errors}>
+        <c-error-panel 
+                errors={errors}>
+        </c-error-panel>
+    </template>
+
+
+    
+</template>

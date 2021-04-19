@@ -16,6 +16,7 @@
 		<members>Budget_Line__c.Spend__c</members>
 		<members>Budget_Line__c.Variance__c</members>
 		<members>Budget__c.Awarded__c</members>
+		<members>Budget__c.Budget_Category__c</members>
 		<members>Budget__c.Change__c</members>
 		<members>Budget__c.Funding_Request__c</members>
 		<members>Budget__c.Heading__c</members>
@@ -61,6 +62,7 @@
 		<name>CustomLabel</name>
 	</types>
 	<types>
+		<members>Budget_Category__c</members>
 		<members>Budget_Line__c</members>
 		<members>Budget__c</members>
 		<name>CustomObject</name>

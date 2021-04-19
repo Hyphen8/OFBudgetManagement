@@ -1,0 +1,21 @@
+<!--
+  @description       : meeting template filters data table
+  @author            : daniel@hyphen8.com
+  @group             : 
+  @last modified on  : 25/02/2021
+  @last modified by  : daniel@hyphen8.com
+  Modifications Log 
+  Ver   Date         Author               Modification
+  1.0   01-10-2021   daniel@hyphen8.com   Initial Version
+-->
+<template>
+    <div class="slds-p-horizontal_small">
+        <lightning-datatable
+                key-field="id"
+                hide-checkbox-column
+                data={mappingFilters}
+                columns={columns}
+                onrowaction={handleRowAction}>
+        </lightning-datatable>
+    </div>
+</template>

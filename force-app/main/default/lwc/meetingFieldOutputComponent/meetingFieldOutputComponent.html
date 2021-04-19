@@ -1,0 +1,32 @@
+<!--
+  @description       : 
+  @author            : daniel@hyphen8.com
+  @last modified on  : 01/03/2021
+  @last modified by  : daniel@hyphen8.com
+  Modifications Log 
+  Ver   Date         Author               Modification
+  1.0   23/02/2021   daniel@hyphen8.com   Initial Version
+-->
+<template>
+
+    <template if:true={displayText}>
+        <lightning-formatted-text value={field.textValue}></lightning-formatted-text>
+    </template>
+    <template if:true={displayCurrency}>
+        <lightning-formatted-number value={field.currencyValue} format-style="currency" currency-code={field.currencyISOCodeValue}></lightning-formatted-number>
+    </template>
+    <template if:true={displayNumber}>
+        <lightning-formatted-number value={field.numberValue}></lightning-formatted-number>
+    </template>
+    <template if:true={displayDate}>
+        <lightning-formatted-date-time value={field.dateValue}></lightning-formatted-date-time>
+    </template>
+    <template if:true={displayDateTime}>
+        <lightning-formatted-date-time value={field.dateTimeValue} year="2-digit" month="short" day="2-digit" hour="numeric"
+            weekday="long" era="short"></lightning-formatted-date-time>
+    </template>
+    <template if:true={displayBoolean}>
+        <lightning-input type="checkbox" checked={field.booleanValue} name="input1" disabled></lightning-input>
+    </template>
+    
+</template>

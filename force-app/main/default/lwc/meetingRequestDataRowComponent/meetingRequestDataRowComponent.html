@@ -1,0 +1,69 @@
+<!--
+  @description       : 
+  @author            : daniel@hyphen8.com
+  @last modified on  : 01/03/2021
+  @last modified by  : daniel@hyphen8.com
+  Modifications Log 
+  Ver   Date         Author               Modification
+  1.0   26/02/2021   daniel@hyphen8.com   Initial Version
+-->
+<template>
+
+    <tr key={request.meetingRequestID} aria-selected="false" class="slds-hint-parent">
+    
+        <template if:true={template.Allow_Bulk_Status_Changes__c}>
+            <td class="slds-text-align_right" scope="col">
+                <lightning-input class="rowCheckboxes" data-id="checkbox" data-target-id={request.meetingRequestID} type="checkbox" name="input1" checked={checkStatus} onchange={rowSelection}></lightning-input>
+            </td>
+        </template>
+        <template for:each={request.fundingRequest} for:item="fr">
+            <td class="slds-cell-wrap" key={fr}>
+                <div>
+                    <c-meeting-field-output-component field={fr}></c-meeting-field-output-component>
+                </div>
+            </td>
+        </template>
+        <td>
+            <div class="slds-truncate">
+                <template if:true={template.Edit_Awarded_Amount__c}>
+                    <lightning-input data-currentstatus={request.status} data-target-id={request.meetingRequestID} type="number" name="input7" variant="label-hidden" value={request.awardedAmount} formatter="currency" step="0.01" currency-code={request.currencyISOCode} oncommit={handleAwardedCommit}></lightning-input>
+                </template>
+                <template if:false={template.Edit_Awarded_Amount__c}>
+                    <lightning-formatted-number value={request.awardedAmount} format-style="currency" currency-code={request.currencyISOCode}></lightning-formatted-number>
+                </template>
+            </div>
+        </td>
+        <td>
+            <div>
+                <lightning-combobox
+                    name="progress"
+                    data-target-id={request.meetingRequestID}
+                    data-recommended={request.recommendedAmount}
+                    variant="label-hidden"
+                    value={request.status} 
+                    placeholder={label.selectStatusPlaceholder}
+                    options={statusOptions}
+                    onchange={handleStatusChange} ></lightning-combobox>
+                
+            </div>
+        </td>
+        <td>
+            <template if:true={template.Add_Comments__c}>
+                <template if:true={request.hasComments}>
+                    <lightning-button-icon variant="brand" data-target-id={request.meetingRequestID} icon-name="utility:comments" alternative-text={label.hasCommentsButton} title={label.hasCommentsButton} onclick={viewAddComments}></lightning-button-icon>
+                </template>
+                <template if:false={request.hasComments}>
+                    <lightning-button-icon variant="bare" data-target-id={request.meetingRequestID} icon-name="utility:comments" alternative-text={label.noCommentsButton} title={label.noCommentsButton} onclick={viewAddComments}></lightning-button-icon>
+                </template>
+                
+            </template>
+            <template if:true={template.Display_Link_to_Funding_Request__c}>
+                <lightning-button-icon variant="bare" data-target-id={request.fundingRequestID} icon-name="utility:preview" alternative-text={label.viewButton} title={label.viewButton} onclick={viewFundingRequest}></lightning-button-icon>
+            </template>
+            <lightning-button-icon variant="bare" data-target-id={request.meetingRequestID} icon-name="utility:delete" alternative-text={label.removeButton} title={label.removeButton} onclick={deleteMeetingRequest}></lightning-button-icon>
+        </td>
+    
+    </tr>
+    <!-- <c-meeting-comments-modal meeting-request-id={meetingRequestRecordID} open-modal={openComments} onmodalclosed={handleCommentsClose} onmodalsaved={handleSaveAction}></c-meeting-comments-modal> -->
+
+</template>

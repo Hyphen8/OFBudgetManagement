@@ -1,0 +1,59 @@
+<!--
+  @description       : configure request datatable options
+  @author            : daniel@hyphen8.com
+  @last modified on  : 16/03/2021
+  @last modified by  : daniel@hyphen8.com
+  Modifications Log 
+  Ver   Date         Author               Modification
+  1.0   21/02/2021   daniel@hyphen8.com   Initial Version
+-->
+<template>
+
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col">
+            <lightning-dual-listbox name="statuses"
+                    label={label.statusSelectionTitle}
+                    source-label={label.statusSelectionSourceLabel}
+                    selected-label={label.statusSelectionSelectedLabel}
+                    options={options}
+                    value={selected}
+                    onchange={handleChange}>
+            </lightning-dual-listbox>
+            <p class="slds-m-top_small"><lightning-formatted-rich-text value={label.statusSelectionHelpText}></lightning-formatted-rich-text></p>
+        </div>
+        <div class="slds-col">
+            <lightning-combobox
+                name="defaultstatus"
+                label={label.defaultStatusLabel}
+                placeholder={label.defaultStatusPlaceholder}
+                options={defaultSelectedOptions}
+                value={defaultStatus}
+                onchange={handleDefaultStatusChange} >
+            </lightning-combobox>
+            <p class="slds-m-top_small"><lightning-formatted-rich-text value={label.defaultStatusHelp}></lightning-formatted-rich-text></p>
+            <lightning-combobox
+                name="awardstatus"
+                label={label.awardedStatusLabel}
+                placeholder={label.awardedStatusPlaceholder}
+                options={defaultSelectedOptions}
+                value={awardedStatus}
+                onchange={handleAwardedStatusChange} >
+            </lightning-combobox>
+            <p class="slds-m-top_small"><lightning-formatted-rich-text value={label.awardedStatusHelp}></lightning-formatted-rich-text></p>
+        </div>
+        <div class="slds-col">
+            <lightning-checkbox-group name="configurationoptions"
+                    label={label.configurationOptionsLabel}
+                    options={configurationOptions}
+                    value={configurationValue}
+                    onchange={handleConfigurationChange}>
+            </lightning-checkbox-group>
+            <p class="slds-m-top_small"><lightning-formatted-rich-text value={label.configurationOptionsHelp}></lightning-formatted-rich-text></p>
+        </div>
+    </div>
+
+    <div class="slds-m-top_medium slds-align_absolute-center">
+        <lightning-button variant="brand" label={label.saveButtonLabel} title={label.saveButtonLabel} onclick={handleSaveOptions}></lightning-button>
+    </div>
+    
+</template>
