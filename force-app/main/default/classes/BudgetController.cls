@@ -2,7 +2,7 @@
  * @description       : controller class with methods used during the budget management process
  * @author            : daniel@hyphen8.com
  * @group             : 
- * @last modified on  : 04-17-2021
+ * @last modified on  : 17/04/2021
  * @last modified by  : daniel@hyphen8.com
  * Modifications Log 
  * Ver   Date         Author               Modification
@@ -97,4 +97,33 @@ public with sharing class BudgetController {
             throw new AuraHandledException(e.getMessage());
         }
     }
+
+    @AuraEnabled
+    public static string saveChange(string recordId, string value, string fieldType){
+        try {
+            Budget_Line__c budgetLineUpdate = new Budget_Line__c(ID=recordId);
+            switch on fieldType {
+                when 'Plan'{
+                    budgetLineUpdate.Plan__c = Decimal.valueOf(value);
+                }
+                when 'Recommended'{
+                    budgetLineUpdate.Recommended__c = Decimal.valueOf(value);
+                }
+                when 'Spend'{
+                    budgetLineUpdate.put('Spend__c', decimal.valueof(value));
+                }
+                when 'Change'{
+                    budgetLineUpdate.put('Change__c', decimal.valueof(value));
+                }
+            }
+
+            update budgetLineUpdate;
+
+            return 'Success';
+            
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
 }

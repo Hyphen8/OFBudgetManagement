@@ -4,16 +4,35 @@
     <isExposed>true</isExposed>
     <targets>
         <target>lightning__RecordPage</target>
+        <target>lightning__FlowScreen</target>
     </targets>
     <targetConfigs>
         <targetConfig targets="lightning__RecordPage">
-            <property name="showPlan" type="Boolean" />
-            <property name="showRecommended" type="Boolean" />
-            <property name="showAwarded" type="Boolean" />
-            <property name="showPayment" type="Boolean" />
-            <property name="showChange" type="Boolean" />
-            <property name="showSpend" type="Boolean" />
-            <property name="showVariance" type="Boolean" />
+            <property name="creationMode" type="Boolean" label="Creation Mode" />
+            <property name="recommendationMode" type="Boolean" label="Recommendation Mode" />
+            <property name="spendMode" type="Boolean" label="Spend Mode" />
+            <property name="changeMode" type="Boolean" label="Change Mode" />
+            <property name="showPlan" type="Boolean" label="Display Plan Data" />
+            <property name="showRecommended" type="Boolean" label="Display Recommended Data" />
+            <property name="showAwarded" type="Boolean" label="Display Awarded Data" />
+            <property name="showPayment" type="Boolean" label="Display Payment Data" />
+            <property name="showChange" type="Boolean" label="Display Change Data" />
+            <property name="showSpend" type="Boolean" label="Display Spend Dat" />
+            <property name="showVariance" type="Boolean" label="Display Variance Data" />
+        </targetConfig>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="recordId" type="string" role="inputOnly" label="Funding Request Record ID" />
+            <property name="creationMode" type="Boolean" role="inputOnly"  label="Creation Mode"/>
+            <property name="recommendationMode" type="Boolean" role="inputOnly" label="Recommendation Mode"/>
+            <property name="spendMode" type="Boolean" role="inputOnly" label="Spend Mode" />
+            <property name="changeMode" type="Boolean" role="inputOnly" label="Change Mode" />
+            <property name="showPlan" type="Boolean" role="inputOnly" label="Display Plan Data" /> 
+            <property name="showRecommended" type="Boolean" role="inputOnly" label="Display Recommended Data" />
+            <property name="showAwarded" type="Boolean" role="inputOnly" label="Display Awarded Data" />
+            <property name="showPayment" type="Boolean" role="inputOnly" label="Display Payment Data" />
+            <property name="showChange" type="Boolean" role="inputOnly" label="Display Change Data" />
+            <property name="showSpend" type="Boolean" role="inputOnly" label="Display Spend Data" />
+            <property name="showVariance" type="Boolean" role="inputOnly" label="Display Variance Data" />
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>
